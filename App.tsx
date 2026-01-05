@@ -1,20 +1,19 @@
-
 import React, { useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Services from './components/Services';
-import Brands from './components/Brands';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import About from './components/About.tsx';
+import Projects from './components/Projects.tsx';
+import Services from './components/Services.tsx';
+import Brands from './components/Brands.tsx';
+import Contact from './components/Contact.tsx';
+import Footer from './components/Footer.tsx';
 
 const App: React.FC = () => {
   useEffect(() => {
     // Reveal animations on scroll
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -26,13 +25,19 @@ const App: React.FC = () => {
       });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // Ensure elements are ready in the DOM before observing
+    const timeoutId = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, 150);
 
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen selection:bg-blue-500 selection:text-white">
       <Header />
       <main>
         <Hero />
