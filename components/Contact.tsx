@@ -1,7 +1,36 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const recipient = "VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM";
+    const subject = encodeURIComponent(`Query from ${formData.name} - Voidcraft Studio`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n\n` +
+      `Message:\n${formData.message}`
+    );
+
+    // Construct the mailto link and trigger it
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <section id="contact" className="py-24 md:py-32 bg-zinc-950 relative overflow-hidden">
       {/* Decorative Blur */}
@@ -41,12 +70,16 @@ const Contact: React.FC = () => {
 
           {/* Form */}
           <div className="reveal opacity-0 translate-y-10 transition-all duration-700 delay-200">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Name</label>
                   <input 
                     type="text" 
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="John Doe" 
                     className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white"
                   />
@@ -55,6 +88,10 @@ const Contact: React.FC = () => {
                   <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Email</label>
                   <input 
                     type="email" 
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="john@example.com" 
                     className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white"
                   />
@@ -64,11 +101,18 @@ const Contact: React.FC = () => {
                 <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Message</label>
                 <textarea 
                   rows={6} 
+                  name="message"
+                  required
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Tell us about your project..." 
                   className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white resize-none"
                 ></textarea>
               </div>
-              <button className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 active:scale-95">
+              <button 
+                type="submit"
+                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 active:scale-95"
+              >
                 Send Message
               </button>
             </form>
