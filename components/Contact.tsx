@@ -38,23 +38,16 @@ const Contact: React.FC = () => {
 
       if (error) throw error;
 
-      // 2. Prepare Email Notification (mailto fallback)
-      const recipient = "VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM";
-      const subject = encodeURIComponent(`Query from ${formData.name} - Voidcraft Studio`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n\n` +
-        `Message:\n${formData.message}`
-      );
-
+      // 2. Success Feedback
       setStatus('success');
       
-      // Trigger the email client after short delay
+      // Reset form fields
+      setFormData({ name: '', email: '', message: '' });
+
+      // Reset status back to idle after 5 seconds to allow another message
       setTimeout(() => {
-        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-        // Reset form after a slight delay to allow the mailto to trigger
-        setFormData({ name: '', email: '', message: '' });
-      }, 500);
+        setStatus('idle');
+      }, 5000);
 
     } catch (err) {
       console.error('Submission error:', err);
@@ -176,7 +169,7 @@ const Contact: React.FC = () => {
               
               {status === 'success' && (
                 <p className="text-center text-xs text-emerald-400 animate-pulse uppercase tracking-[0.2em] font-bold">
-                  Saved to database. Opening email client...
+                  Success! Your inquiry has been stored.
                 </p>
               )}
             </form>
