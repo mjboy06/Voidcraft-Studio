@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 
 const LOGO_URL = 'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767568303/All_Logos_54_n8zldo.png';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,49 +18,85 @@ const Header: React.FC = () => {
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Services', href: '#services' }
   ];
 
-  return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-4 glass' : 'py-8 bg-transparent'}`}>
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Logo and Brand Text */}
-        <a href="#home" className="flex items-center group">
-          <img 
-            src={LOGO_URL} 
-            alt="Voidcraft Studio Logo" 
-            className="h-10 md:h-12 w-auto object-contain hover:brightness-125 transition-all"
-          />
-          <span className="ml-3 text-lg md:text-xl font-bold tracking-[0.2em] uppercase text-white font-['Outfit'] hidden sm:block group-hover:text-blue-400 transition-colors">
-            Voidcraft Studio
-          </span>
-        </a>
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-10">
+  return (
+    <>
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-4 glass' : 'py-8 bg-transparent'}`}>
+        <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+          {/* Logo and Brand Text */}
+          <a href="#home" className="flex items-center group relative z-50">
+            <img 
+              src={LOGO_URL} 
+              alt="Voidcraft Studio Logo" 
+              className="h-10 md:h-12 w-auto object-contain hover:brightness-125 transition-all"
+            />
+            <span className="ml-3 text-lg md:text-xl font-bold tracking-[0.2em] uppercase text-white font-['Outfit'] hidden sm:block group-hover:text-blue-400 transition-colors">
+              Voidcraft Studio
+            </span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-10">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-xs font-medium text-zinc-400 hover:text-white transition-colors relative group tracking-widest uppercase"
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-blue-500 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_#3b82f6]"></span>
+              </a>
+            ))}
+            <a 
+              href="#contact" 
+              className="px-6 py-2.5 bg-blue-600 text-white text-[10px] font-bold rounded-full hover:bg-blue-500 transition-all transform hover:scale-105 tracking-[0.15em] uppercase shadow-lg shadow-blue-500/20"
+            >
+              Contact Us
+            </a>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={toggleMenu}
+            className="md:hidden relative z-50 text-white p-2 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <div className="w-6 h-5 flex flex-col justify-between overflow-hidden">
+              <span className={`w-full h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`w-full h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0 translate-x-10' : ''}`}></span>
+              <span className={`w-full h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </div>
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 z-40 bg-black transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col items-center justify-center h-full space-y-8 p-6">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-zinc-400 hover:text-white transition-colors relative group tracking-widest uppercase"
+              onClick={() => setIsMenuOpen(false)}
+              className="text-2xl font-bold text-white tracking-widest uppercase hover:text-blue-500 transition-colors"
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-blue-500 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_8px_#3b82f6]"></span>
             </a>
           ))}
-        </nav>
-
-        {/* Mobile Menu Button (simplified) */}
-        <div className="md:hidden">
-          <button className="text-white p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
+          <a 
+            href="#contact" 
+            onClick={() => setIsMenuOpen(false)}
+            className="px-12 py-5 bg-blue-600 text-white text-sm font-bold rounded-full hover:bg-blue-500 transition-all transform active:scale-95 tracking-[0.2em] uppercase shadow-xl shadow-blue-500/20"
+          >
+            Contact Us
+          </a>
         </div>
       </div>
-    </header>
+    </>
   );
 };
 

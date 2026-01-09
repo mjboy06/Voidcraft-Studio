@@ -46,8 +46,8 @@ const App: React.FC = () => {
         <Services />
         <Brands />
         <Contact />
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 };

@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabase.ts';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +7,8 @@ const Contact: React.FC = () => {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -16,19 +18,50 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setStatus('idle');
     
-    const recipient = "VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM";
-    const subject = encodeURIComponent(`Query from ${formData.name} - Voidcraft Studio`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n\n` +
-      `Message:\n${formData.message}`
-    );
+    try {
+      // 1. Save to Supabase
+      const { error } = await supabase
+        .from('queries')
+        .insert([
+          { 
+            name: formData.name, 
+            email: formData.email, 
+            message: formData.message,
+            created_at: new Date().toISOString()
+          }
+        ]);
 
-    // Construct the mailto link and trigger it
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+      if (error) throw error;
+
+      // 2. Prepare Email Notification (mailto fallback)
+      const recipient = "VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM";
+      const subject = encodeURIComponent(`Query from ${formData.name} - Voidcraft Studio`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n\n` +
+        `Message:\n${formData.message}`
+      );
+
+      setStatus('success');
+      
+      // Trigger the email client after short delay
+      setTimeout(() => {
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        // Reset form after a slight delay to allow the mailto to trigger
+        setFormData({ name: '', email: '', message: '' });
+      }, 500);
+
+    } catch (err) {
+      console.error('Submission error:', err);
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,7 +95,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500 uppercase tracking-widest font-bold">Email Us</p>
-                  <p className="text-lg font-medium text-white tracking-wide break-all">VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM</p>
+                  <p className="text-lg font-medium text-white tracking-wide break-all uppercase">VOIDCRAFTSTUDIOOFFICIAL@GMAIL.COM</p>
                 </div>
               </div>
             </div>
@@ -78,10 +111,11 @@ const Contact: React.FC = () => {
                     type="text" 
                     name="name"
                     required
+                    disabled={isSubmitting}
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="John Doe" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white disabled:opacity-50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -90,10 +124,11 @@ const Contact: React.FC = () => {
                     type="email" 
                     name="email"
                     required
+                    disabled={isSubmitting}
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="john@example.com" 
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -103,18 +138,47 @@ const Contact: React.FC = () => {
                   rows={6} 
                   name="message"
                   required
+                  disabled={isSubmitting}
                   value={formData.message}
                   onChange={handleInputChange}
                   placeholder="Tell us about your project..." 
-                  className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white resize-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg p-4 focus:border-blue-500 focus:outline-none transition-colors text-white resize-none disabled:opacity-50"
                 ></textarea>
               </div>
+              
               <button 
                 type="submit"
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 active:scale-95"
+                disabled={isSubmitting}
+                className={`w-full py-4 font-bold rounded-lg transition-all transform hover:scale-[1.02] shadow-lg active:scale-95 flex items-center justify-center space-x-2 ${
+                  status === 'success' 
+                  ? 'bg-emerald-600 text-white' 
+                  : status === 'error'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20'
+                }`}
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Transmitting...</span>
+                  </>
+                ) : status === 'success' ? (
+                  'Message Received!'
+                ) : status === 'error' ? (
+                  'Error! Please Try Again'
+                ) : (
+                  'Send Message'
+                )}
               </button>
+              
+              {status === 'success' && (
+                <p className="text-center text-xs text-emerald-400 animate-pulse uppercase tracking-[0.2em] font-bold">
+                  Saved to database. Opening email client...
+                </p>
+              )}
             </form>
           </div>
         </div>

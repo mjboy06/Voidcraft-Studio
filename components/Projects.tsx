@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const PROJECTS = [
@@ -114,10 +113,15 @@ const Projects: React.FC = () => {
           <p className="text-zinc-400 max-w-lg mb-10 text-sm tracking-wide">
             Get a comprehensive look at our technical capabilities and a curated selection of our high-end CGI productions.
           </p>
-          <button className="group relative px-12 py-5 bg-white text-black font-black uppercase text-xs tracking-[0.2em] rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+          <a 
+            href="https://drive.google.com/file/d/1h3AblSaVjb258EKv6-aY-vm1ulk_yJgA/view?usp=sharing" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group relative px-12 py-5 bg-white text-black font-black uppercase text-xs tracking-[0.2em] rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.4)] block text-center"
+          >
             <span className="relative z-10">Get PDF Portfolio</span>
             <div className="absolute inset-0 bg-blue-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-          </button>
+          </a>
         </div>
       </div>
     </section>
