@@ -1,46 +1,45 @@
-
 import React from 'react';
 
 const SERVICES = [
   {
     title: '3D Product Animation',
     desc: 'Bringing your physical products to life with detail that matches reality.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649024/for_product_animation_vkppxc.mp4'
+    video: 'https://www.dropbox.com/scl/fi/bbuany186vdmsmfxauefj/for-product-animation.mp4?rlkey=5j3r1xb038ycj8r6gc45zbk2q&st=pmmhc0sr&raw=1'
   },
   {
     title: 'CGI & VFX videos',
     desc: 'Integrating digital elements seamlessly with real-world footage.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649038/for_vfx_cgi_emxdku.mp4'
+    video: 'https://www.dropbox.com/scl/fi/wx3nt4rk43zwgpszf5twl/for-vfx-cgi.mp4?rlkey=my76pivy6ty0f7sgjw1vebuys&st=i8peqoaj&raw=1'
   },
   {
     title: 'Cinematic CGI Videos',
     desc: 'Epic visual storytelling for brand identity and narrative commercials.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649024/cinemetic_cgi_video_dr5tgv.mp4'
+    video: 'https://www.dropbox.com/scl/fi/ylrwn3ytkct2e1dbij3zg/cinemetic-cgi-video.mp4?rlkey=vtmyqh1oryhbdu5y3a5q7weox&st=u6qmwmw5&raw=1'
   },
   {
     title: '3D Rendering',
     desc: 'Precise physically based lighting and high-quality renders.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649023/for_rendering_2_zsejmc.mp4'
+    video: 'https://www.dropbox.com/scl/fi/8wfl0jvhbi6a4bcgttajs/for-rendering-1.mp4?rlkey=6trzp8vpj45kxwwpkjsczobu7&st=21kpxqkc&raw=1'
   },
   {
     title: '3D Modeling',
     desc: 'High-fidelity geometric modeling for all digital applications.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649025/for_3d_modeling_yqwdvc.mp4'
+    video: 'https://www.dropbox.com/scl/fi/fv5995rsxhx45akth3egw/for-3d-modeling.mp4?rlkey=xuai1giv4g0ooyuw116k42nmx&st=0ownro8w&raw=1'
   },
   {
     title: 'Environment & Scene Creation',
     desc: 'Building immersive digital worlds from scratch.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649462/Untitled_design_25_gvdroy.mp4'
+    video: 'https://www.dropbox.com/scl/fi/g2hyofa6ugd77y53z6a0h/Untitled-design-25.mp4?rlkey=lyv6zl1pl0h9xr5ybvh4edxfh&st=oftje8m2&raw=1'
   },
   {
     title: 'Architectural Visualization',
     desc: 'Photorealistic interiors and exteriors for architectural projects.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649765/From_KlickPin_CF_Pin_by_Cozy_Nest___Home_Decor_Desig_on_%D0%92%D0%B0%D1%88%D0%B8_%D0%BF%D0%B8%D0%BD%D1%8B___Interior_design_renderings_Interior_design_instagram_Interior_design_trbcn8.mp4'
+    video: 'https://www.dropbox.com/scl/fi/845vq4j2o6dgv2u4xq7b8/From-KlickPin-CF-Pin-by-Cozy-Nest-_-Home-Decor-Desig-on-_-Interior-design-renderings-Interior-design-instagram-Interior-design.mp4?rlkey=pamru3rn7suz964ml4v7vh87r&st=3hdedv46&raw=1'
   },
   {
     title: 'Custom Request',
     desc: 'Tailored solutions for your most ambitious creative visions.',
-    video: 'https://res.cloudinary.com/djwiyyxkm/video/upload/v1767649937/From_KlickPin_CF_Pin_auf_Thoughts_in_Art_a71ffl.mp4'
+    video: 'https://www.dropbox.com/scl/fi/59yrjh3zxul5026siarfp/From-KlickPin-CF-Pin-auf-Thoughts-in-Art.mp4?rlkey=xvy69yn8wwtiiskuadl4q2qzl&st=3l9px3ex&raw=1'
   }
 ];
 

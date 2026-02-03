@@ -1,13 +1,11 @@
-
 import React from 'react';
 
 const BRAND_LOGOS = [
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650141/Untitled_design_-_2026-01-06T032451.392_lxn2lg.png',
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650143/black_58_einl8i.png',
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650143/black_57_ejywec.png',
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650143/black_56_lxehzo.png',
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650143/black_55_labjix.png',
-  'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767650144/black_54_dmmn6p.png'
+  'https://www.dropbox.com/scl/fi/sb0fxdnn8910p04623fdm/black-54.png?rlkey=yphhcu6dr8zhnwt411dq2y7bk&st=0z90xqqo&raw=1',
+  'https://www.dropbox.com/scl/fi/ghrest1s4mvcteswgb11r/black-55.png?rlkey=c6ie3lp7o5hd6f5438vko2vm6&st=n7diwmaq&raw=1',
+  'https://www.dropbox.com/scl/fi/ew1nrgxqd94t2v4cqla27/black-56.png?rlkey=b5ltx3sa77qyi6omzx5ayjtyf&st=97soo77e&raw=1',
+  'https://www.dropbox.com/scl/fi/jivt7u87gmf1qqmqj4x45/black-57.png?rlkey=47d9zzqu4qzu15xwfcyxieaku&st=lhd099ar&raw=1',
+  'https://www.dropbox.com/scl/fi/xz9eqryrjdfez49hphj90/black-58.png?rlkey=leznan1c81t8g4j5baik3z0g9&st=trj8qd01&raw=1'
 ];
 
 const Brands: React.FC = () => {

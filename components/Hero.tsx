@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const Hero: React.FC = () => {
@@ -13,7 +12,7 @@ const Hero: React.FC = () => {
           playsInline
           className="w-full h-full object-cover brightness-75"
         >
-          <source src="https://res.cloudinary.com/djwiyyxkm/video/upload/v1767569774/for_voidcraft_website_ge3ojs.mp4" type="video/mp4" />
+          <source src="https://www.dropbox.com/scl/fi/m4mjmgs6pnq2y2ttkc0ns/for-voidcraft-website.mp4?rlkey=h9vijgb92lynyu1aneznt5udd&st=mhwf1kr3&raw=1" type="video/mp4" />
         </video>
         {/* Enhanced black overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/40 z-10" />

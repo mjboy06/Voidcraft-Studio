@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const LOGO_URL = 'https://res.cloudinary.com/djwiyyxkm/image/upload/v1767568303/All_Logos_54_n8zldo.png';
+const LOGO_URL = 'https://www.dropbox.com/scl/fi/paqn1ax1ebnmhimw985r6/All-Logos-54.png?rlkey=9qle2bc2jwr4xghynzqvy0a55&st=yrmzkq28&raw=1';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
