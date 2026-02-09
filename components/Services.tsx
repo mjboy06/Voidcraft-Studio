@@ -4,46 +4,98 @@ const SERVICES = [
   {
     title: '3D Product Animation',
     desc: 'Bringing your physical products to life with detail that matches reality.',
-    video: 'https://drive.google.com/uc?id=1sfq4WhzLF-gS_QAafXwc8nyzNzCUrj4s&export=download'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=for_product_animation_kb756b'
   },
   {
     title: 'CGI & VFX videos',
     desc: 'Integrating digital elements seamlessly with real-world footage.',
-    video: 'https://www.dropbox.com/scl/fi/wx3nt4rk43zwgpszf5twl/for-vfx-cgi.mp4?rlkey=my76pivy6ty0f7sgjw1vebuys&st=i8peqoaj&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=for_vfx_cgi_nu0ihj'
   },
   {
     title: 'Cinematic CGI Videos',
     desc: 'Epic visual storytelling for brand identity and narrative commercials.',
-    video: 'https://www.dropbox.com/scl/fi/ylrwn3ytkct2e1dbij3zg/cinemetic-cgi-video.mp4?rlkey=vtmyqh1oryhbdu5y3a5q7weox&st=u6qmwmw5&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=cinemetic_cgi_video_ijfjsv'
   },
   {
     title: '3D Rendering',
     desc: 'Precise physically based lighting and high-quality renders.',
-    video: 'https://www.dropbox.com/scl/fi/8wfl0jvhbi6a4bcgttajs/for-rendering-1.mp4?rlkey=6trzp8vpj45kxwwpkjsczobu7&st=21kpxqkc&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=for_rendering_1_tsnepf'
   },
   {
     title: '3D Modeling',
     desc: 'High-fidelity geometric modeling for all digital applications.',
-    video: 'https://www.dropbox.com/scl/fi/fv5995rsxhx45akth3egw/for-3d-modeling.mp4?rlkey=xuai1giv4g0ooyuw116k42nmx&st=0ownro8w&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=for_3d_modeling_snzqyb'
   },
   {
     title: 'Environment & Scene Creation',
     desc: 'Building immersive digital worlds from scratch.',
-    video: 'https://www.dropbox.com/scl/fi/g2hyofa6ugd77y53z6a0h/Untitled-design-25.mp4?rlkey=lyv6zl1pl0h9xr5ybvh4edxfh&st=oftje8m2&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=Untitled_design_25_h7opux'
   },
   {
     title: 'Architectural Visualization',
     desc: 'Photorealistic interiors and exteriors for architectural projects.',
-    video: 'https://www.dropbox.com/scl/fi/845vq4j2o6dgv2u4xq7b8/From-KlickPin-CF-Pin-by-Cozy-Nest-_-Home-Decor-Desig-on-_-Interior-design-renderings-Interior-design-instagram-Interior-design.mp4?rlkey=pamru3rn7suz964ml4v7vh87r&st=3hdedv46&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=From_KlickPin_CF_Pin_by_Cozy_Nest___Home_Decor_Desig_on_%D0%92%D0%B0%D1%88%D0%B8_%D0%BF%D0%B8%D0%BD%D1%8B___Interior_design_renderings_Interior_design_instagram_Interior_design_hijqdo'
   },
   {
     title: 'Custom Request',
     desc: 'Tailored solutions for your most ambitious creative visions.',
-    video: 'https://www.dropbox.com/scl/fi/59yrjh3zxul5026siarfp/From-KlickPin-CF-Pin-auf-Thoughts-in-Art.mp4?rlkey=xvy69yn8wwtiiskuadl4q2qzl&st=3l9px3ex&raw=1'
+    video: 'https://player.cloudinary.com/embed/?cloud_name=dzdfz5ron&public_id=From_KlickPin_CF_Pin_auf_Thoughts_in_Art_tpbuut'
   }
 ];
 
 const Services: React.FC = () => {
+  const getMediaSource = (url: string) => {
+    // Cloudinary Player detection
+    if (url.includes('player.cloudinary.com/embed')) {
+      // Ensure we have autoplay, muted, loop, and no controls for background effect
+      const base = url.includes('?') ? url : `${url}?`;
+      const optimizedUrl = `${base}&autoplay=true&muted=true&loop=true&controls=false`;
+      return { type: 'iframe', src: optimizedUrl };
+    }
+
+    // YouTube / Shorts detection
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      let id = '';
+      if (url.includes('shorts/')) {
+        id = url.split('shorts/')[1].split(/[?#&]/)[0];
+      } else if (url.includes('v=')) {
+        id = url.split('v=')[1].split(/[?#&]/)[0];
+      } else {
+        id = url.split('/').pop()?.split(/[?#&]/)[0] || '';
+      }
+      return { 
+        type: 'iframe', 
+        src: `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1` 
+      };
+    }
+    
+    if (url.includes('vimeo.com')) {
+      const id = url.split('/').pop()?.split('?')[0];
+      return { type: 'iframe', src: `https://player.vimeo.com/video/${id}?autoplay=1&loop=1&muted=1&background=1&transparent=1` };
+    }
+    
+    if (url.includes('playbook.com')) {
+      const embedUrl = url.replace('/s/', '/e/');
+      return { type: 'iframe', src: embedUrl };
+    }
+    
+    if (url.includes('drive.google.com')) {
+      // Robustly extract file ID and ensure /preview suffix for embedding
+      let embedUrl = url;
+      if (url.includes('/file/d/')) {
+        const id = url.split('/file/d/')[1].split('/')[0];
+        embedUrl = `https://drive.google.com/file/d/${id}/preview`;
+      }
+      return { type: 'iframe', src: embedUrl };
+    }
+
+    if (url.includes('mediafire.com')) {
+      return { type: 'direct', src: url };
+    }
+    
+    return { type: 'direct', src: url };
+  };
+
   return (
     <section id="services" className="bg-zinc-950">
       {/* Introduction */}
@@ -57,35 +109,51 @@ const Services: React.FC = () => {
 
       {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full">
-        {SERVICES.map((service, idx) => (
-          <div 
-            key={idx} 
-            className="group relative h-[450px] overflow-hidden border-r border-b border-white/5 cursor-pointer"
-          >
-            {/* Background Video */}
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+        {SERVICES.map((service, idx) => {
+          const media = getMediaSource(service.video);
+          
+          return (
+            <div 
+              key={idx} 
+              className="group relative h-[450px] overflow-hidden border-r border-b border-white/5 cursor-pointer"
             >
-              <source src={service.video} type="video/mp4" />
-            </video>
-            
-            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors" />
-            
-            <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
-              <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors leading-tight tracking-wide">
-                {service.title}
-              </h3>
-              <p className="text-sm text-zinc-400 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                {service.desc}
-              </p>
-              <div className="mt-4 w-0 group-hover:w-full h-[1px] bg-blue-500 transition-all duration-500"></div>
+              {/* Background Media */}
+              <div className="absolute inset-0 w-full h-full grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110 pointer-events-none">
+                {media.type === 'iframe' ? (
+                  <iframe
+                    src={media.src}
+                    className="absolute top-1/2 left-1/2 w-[250%] h-[250%] -translate-x-1/2 -translate-y-1/2 object-cover border-none"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    className="absolute inset-0 w-full h-full object-cover"
+                  >
+                    <source src={media.src} type="video/mp4" />
+                  </video>
+                )}
+              </div>
+              
+              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors" />
+              
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors leading-tight tracking-wide">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-zinc-400 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  {service.desc}
+                </p>
+                <div className="mt-4 w-0 group-hover:w-full h-[1px] bg-blue-500 transition-all duration-500"></div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

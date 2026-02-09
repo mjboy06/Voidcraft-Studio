@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LOGO_URL = 'https://www.dropbox.com/scl/fi/paqn1ax1ebnmhimw985r6/All-Logos-54.png?rlkey=9qle2bc2jwr4xghynzqvy0a55&st=yrmzkq28&raw=1';
+const LOGO_URL = 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638819/All_Logos_54_kcxvyv.png';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();

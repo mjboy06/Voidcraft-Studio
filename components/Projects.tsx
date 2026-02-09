@@ -5,56 +5,56 @@ const PROJECTS = [
     id: '1',
     title: 'Castle Scene',
     category: 'Short Movie',
-    image: 'https://www.dropbox.com/scl/fi/e8jyhblmv5rfaeq9d1cru/9.png?rlkey=dgp2rwn8b9y07x4yqpjn5k300&st=j1atd7e3&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638831/10_kvo5cz.png',
     description: 'Cinematic environment design featuring a majestic medieval castle.'
   },
   {
     id: '2',
     title: 'Cabai Box',
     category: 'Product Visualization',
-    image: 'https://www.dropbox.com/scl/fi/d8rhg7i2zqpyt2ei5ayzb/1-47.png?rlkey=4um4fcvzmwb2xnc42k4ge2ppg&st=uzhq5v2i&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638844/1_47_qyvqd0.png',
     description: 'High-end product visualization for luxury packaging.'
   },
   {
     id: '3',
     title: '3D Architecture',
     category: 'Room Architect',
-    image: 'https://www.dropbox.com/scl/fi/m7sn7pflm459wk86jkv4t/8-1.jpg?rlkey=7ib2rew9b6mcnwr519hb9wycf&st=4ibr81na&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638834/7_d8wxjq.png',
     description: 'Detailed interior architectural rendering with realistic lighting.'
   },
   {
     id: '4',
     title: 'Doorderma product',
     category: 'Product Animation',
-    image: 'https://www.dropbox.com/scl/fi/f4s1z1ynip1braq2lfh0d/3-2.png?rlkey=28iyka3kbmp58r8lu0jj2xatu&st=8ewdl4at&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638830/3_2_yioduv.png',
     description: 'Dynamic animation showcasing product features and utility.'
   },
   {
     id: '5',
     title: 'CGI Ad',
     category: 'CGI Animation',
-    image: 'https://www.dropbox.com/scl/fi/b6oi1pret0sm1iziimls9/4.png?rlkey=13dk5he3wspsm50rzuxhmx1nr&st=mcwkcoui&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638832/4_cvirhq.png',
     description: 'Immersive CGI advertisement for digital marketing.'
   },
   {
     id: '6',
     title: 'Banner Promotion',
     category: 'CGI Animation',
-    image: 'https://www.dropbox.com/scl/fi/oy5zigvp4zxr31bsr4js1/5-12.png?rlkey=u3opq7n4e1mlpehyc0f3ocl75&st=vcjpbs4y&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638841/5_12_oiboff.png',
     description: 'Visual promotion design using advanced 3D elements.'
   },
   {
     id: '7',
     title: 'Light Showcase',
     category: 'Room Architect',
-    image: 'https://www.dropbox.com/scl/fi/5xrll0lcssg0r75alt758/7.png?rlkey=40fqbctuoiswl6pnayi8y392o&st=ho39vij8&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770639070/8_1_fyywbh.jpg',
     description: 'A study in lighting and interior ambiance.'
   },
   {
     id: '8',
     title: 'Australian Forest',
     category: 'Enviroment Scene',
-    image: 'https://www.dropbox.com/scl/fi/yy0pe99w1ut6lio9g7qb6/2-2.jpg?rlkey=0dwq6qhyp3rawac7coxtkcwql&st=zukge7zr&raw=1',
+    image: 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770639072/2_2_kr8jjg.png',
     description: 'Hyper-realistic nature environment recreation.'
   }
 ];

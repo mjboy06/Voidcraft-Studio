@@ -1,11 +1,12 @@
 import React from 'react';
 
 const BRAND_LOGOS = [
-  'https://www.dropbox.com/scl/fi/sb0fxdnn8910p04623fdm/black-54.png?rlkey=yphhcu6dr8zhnwt411dq2y7bk&st=0z90xqqo&raw=1',
-  'https://www.dropbox.com/scl/fi/ghrest1s4mvcteswgb11r/black-55.png?rlkey=c6ie3lp7o5hd6f5438vko2vm6&st=n7diwmaq&raw=1',
-  'https://www.dropbox.com/scl/fi/ew1nrgxqd94t2v4cqla27/black-56.png?rlkey=b5ltx3sa77qyi6omzx5ayjtyf&st=97soo77e&raw=1',
-  'https://www.dropbox.com/scl/fi/jivt7u87gmf1qqmqj4x45/black-57.png?rlkey=47d9zzqu4qzu15xwfcyxieaku&st=lhd099ar&raw=1',
-  'https://www.dropbox.com/scl/fi/xz9eqryrjdfez49hphj90/black-58.png?rlkey=leznan1c81t8g4j5baik3z0g9&st=trj8qd01&raw=1'
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638829/black_54_tbkw55.png',
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638827/Untitled_design_-_2026-01-06T032451.392_qtmjiz.png',
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638826/black_58_snzoqh.png',
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638824/black_57_badrln.png',
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638822/black_56_i1h8fs.png',
+  'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638820/black_55_qvrm93.png'
 ];
 
 const Brands: React.FC = () => {
@@ -29,7 +30,7 @@ const Brands: React.FC = () => {
               <img 
                 src={logo} 
                 alt={`Partner Brand ${idx + 1}`} 
-                className="h-24 md:h-32 w-auto object-contain transition-transform duration-500 hover:scale-110"
+                className="h-20 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-110 brightness-75 hover:brightness-100"
               />
             </div>
           ))}
@@ -42,7 +43,7 @@ const Brands: React.FC = () => {
             100% { transform: translateX(-50%); }
           }
           .animate-marquee {
-            animation: marquee 15s linear infinite;
+            animation: marquee 20s linear infinite;
           }
           .group:hover .animate-marquee {
             animation-play-state: paused;

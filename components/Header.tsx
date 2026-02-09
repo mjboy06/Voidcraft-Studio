@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const LOGO_URL = 'https://www.dropbox.com/scl/fi/paqn1ax1ebnmhimw985r6/All-Logos-54.png?rlkey=9qle2bc2jwr4xghynzqvy0a55&st=yrmzkq28&raw=1';
+const LOGO_URL = 'https://res.cloudinary.com/dzdfz5ron/image/upload/v1770638819/All_Logos_54_kcxvyv.png';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,14 +27,14 @@ const Header: React.FC = () => {
     <>
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-4 glass' : 'py-8 bg-transparent'}`}>
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-          {/* Logo and Brand Text */}
+          {/* Logo and Brand Text - Visible on all screens */}
           <a href="#home" className="flex items-center group relative z-50">
             <img 
               src={LOGO_URL} 
               alt="Voidcraft Studio Logo" 
-              className="h-10 md:h-12 w-auto object-contain hover:brightness-125 transition-all"
+              className="h-8 md:h-12 w-auto object-contain hover:brightness-125 transition-all"
             />
-            <span className="ml-3 text-lg md:text-xl font-bold tracking-[0.2em] uppercase text-white font-['Outfit'] hidden sm:block group-hover:text-blue-400 transition-colors">
+            <span className="ml-2.5 md:ml-3 text-[13px] sm:text-lg md:text-xl font-bold tracking-[0.1em] sm:tracking-[0.2em] uppercase text-white font-['Outfit'] group-hover:text-blue-400 transition-colors whitespace-nowrap">
               Voidcraft Studio
             </span>
           </a>
