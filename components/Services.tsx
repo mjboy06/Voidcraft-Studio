@@ -4,7 +4,7 @@ const SERVICES = [
   {
     title: '3D Product Animation',
     desc: 'Bringing your physical products to life with detail that matches reality.',
-    video: 'https://www.dropbox.com/scl/fi/bbuany186vdmsmfxauefj/for-product-animation.mp4?rlkey=5j3r1xb038ycj8r6gc45zbk2q&st=pmmhc0sr&raw=1'
+    video: 'https://drive.google.com/uc?id=1sfq4WhzLF-gS_QAafXwc8nyzNzCUrj4s&export=download'
   },
   {
     title: 'CGI & VFX videos',
