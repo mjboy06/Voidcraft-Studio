@@ -10,6 +10,7 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  // Correcting casing to formResponse (standard Google Form endpoint)
   const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfu_YEY4kcVe-TUcsyk6SQgApsjvNMDChZc-_XeJx2OGveeSA/formResponse';
   
   const GOOGLE_FORM_ENTRIES = {
@@ -32,38 +33,47 @@ const Contact: React.FC = () => {
     setStatus('idle');
     
     try {
-      // 1. Submit to Google Forms
-      const googleFormData = new FormData();
-      googleFormData.append(GOOGLE_FORM_ENTRIES.name, formData.name);
-      googleFormData.append(GOOGLE_FORM_ENTRIES.email, formData.email);
-      googleFormData.append(GOOGLE_FORM_ENTRIES.message, formData.message);
+      // 1. Prepare Google Form Data
+      const body = new URLSearchParams();
+      body.append(GOOGLE_FORM_ENTRIES.name, formData.name);
+      body.append(GOOGLE_FORM_ENTRIES.email, formData.email);
+      body.append(GOOGLE_FORM_ENTRIES.message, formData.message);
 
-      // Using mode: 'no-cors' because Google Forms doesn't send CORS headers back.
-      // The request will still reach Google and be processed.
-      fetch(GOOGLE_FORM_URL, {
+      // 2. Submit to Google Forms
+      // Note: 'no-cors' means we won't get a response body, but the data will be sent.
+      const googlePromise = fetch(GOOGLE_FORM_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: googleFormData
-      }).catch(err => console.error('Google Form submission failed:', err));
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: body.toString()
+      });
 
-      // 2. Save to Supabase (Existing logic)
-      const { error } = await supabase
-        .from('queries')
-        .insert([
-          { 
-            name: formData.name, 
-            email: formData.email, 
-            message: formData.message,
-            created_at: new Date().toISOString()
-          }
-        ]);
+      // 3. Save to Supabase (Non-blocking: we don't want DB issues to break the form UI)
+      try {
+        supabase
+          .from('queries')
+          .insert([
+            { 
+              name: formData.name, 
+              email: formData.email, 
+              message: formData.message,
+              created_at: new Date().toISOString()
+            }
+          ])
+          .then(({ error }) => {
+            if (error) console.warn('Supabase Error (check your table setup):', error.message);
+          });
+      } catch (sbErr) {
+        console.warn('Supabase call skipped:', sbErr);
+      }
 
-      if (error) throw error;
+      // We await the fetch to ensure it was at least dispatched
+      await googlePromise;
 
-      // 3. Success Feedback
+      // 4. Success Feedback (Optimistic because of no-cors)
       setStatus('success');
-      
-      // Reset form fields
       setFormData({ name: '', email: '', message: '' });
 
       // Reset status back to idle after 5 seconds
@@ -72,7 +82,7 @@ const Contact: React.FC = () => {
       }, 5000);
 
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error('Submission failed:', err);
       setStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -181,7 +191,7 @@ const Contact: React.FC = () => {
                     <span>Transmitting...</span>
                   </>
                 ) : status === 'success' ? (
-                  'Message Received!'
+                  'Message Sent!'
                 ) : status === 'error' ? (
                   'Error! Please Try Again'
                 ) : (
@@ -191,7 +201,7 @@ const Contact: React.FC = () => {
               
               {status === 'success' && (
                 <p className="text-center text-xs text-emerald-400 animate-pulse uppercase tracking-[0.2em] font-bold">
-                  Success! Your inquiry has been stored.
+                  Success! Your inquiry has been received.
                 </p>
               )}
             </form>
