@@ -10,6 +10,14 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfu_YEY4kcVe-TUcsyk6SQgApsjvNMDChZc-_XeJx2OGveeSA/formResponse';
+  
+  const GOOGLE_FORM_ENTRIES = {
+    name: 'entry.1933828935',
+    email: 'entry.560320876',
+    message: 'entry.708071999'
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -24,7 +32,21 @@ const Contact: React.FC = () => {
     setStatus('idle');
     
     try {
-      // 1. Save to Supabase
+      // 1. Submit to Google Forms
+      const googleFormData = new FormData();
+      googleFormData.append(GOOGLE_FORM_ENTRIES.name, formData.name);
+      googleFormData.append(GOOGLE_FORM_ENTRIES.email, formData.email);
+      googleFormData.append(GOOGLE_FORM_ENTRIES.message, formData.message);
+
+      // Using mode: 'no-cors' because Google Forms doesn't send CORS headers back.
+      // The request will still reach Google and be processed.
+      fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: googleFormData
+      }).catch(err => console.error('Google Form submission failed:', err));
+
+      // 2. Save to Supabase (Existing logic)
       const { error } = await supabase
         .from('queries')
         .insert([
@@ -38,13 +60,13 @@ const Contact: React.FC = () => {
 
       if (error) throw error;
 
-      // 2. Success Feedback
+      // 3. Success Feedback
       setStatus('success');
       
       // Reset form fields
       setFormData({ name: '', email: '', message: '' });
 
-      // Reset status back to idle after 5 seconds to allow another message
+      // Reset status back to idle after 5 seconds
       setTimeout(() => {
         setStatus('idle');
       }, 5000);
